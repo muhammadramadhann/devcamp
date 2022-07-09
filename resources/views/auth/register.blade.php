@@ -32,7 +32,7 @@
                             <div class="col-2 text-center">atau</div>
                             <div class="col-5 px-1"><hr></div>
                         </div>
-                        <a class="btn btn-white btn-google border w-100" href="#">
+                        <a class="btn btn-white btn-google border w-100" href="{{ route('login.google') }}">
                             <img src="{{ asset('images/ic_google.svg') }}" class="me-2" alt=""> 
                             <span class="text-start">Daftar dengan Google</span>
                         </a>

@@ -17,9 +17,9 @@
         <title>@yield('title') | Devcamp</title>
     </head>
     <body class="d-flex flex-column min-vh-100">
-        @include('component.navbar')
+        @include('components.navbar')
         @yield('content')
-        @include('component.footer')
+        @include('components.footer')
         <!-- Option 1: Bootstrap Bundle with Popper -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
 

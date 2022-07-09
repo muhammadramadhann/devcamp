@@ -187,7 +187,8 @@ footer hr {
 .btn-master,
 .btn-thirdty,
 .btn-primary,
-.btn-secondary {
+.btn-secondary,
+.btn-logout {
     padding: 11px 36px 11px 36px;
     border-radius: 32px;
     border: 0;
@@ -222,6 +223,15 @@ footer hr {
 
 .btn-google:hover {
     background: #f5efff;
+}
+
+.btn-logout {
+    background: #ffefef;
+    color: #f33939;
+}
+
+.btn-logout:hover {
+    background: #ab1c1c;
 }
 
 .story {
@@ -390,9 +400,11 @@ footer hr {
 }
 
 .navbar .user-logged .user-photo {
-    width: 56px;
-    height: 56px;
-    margin-left: 10px;
+    margin-left: 8px;
+    width: 42px;
+    height: 42px;
+    border: 2px solid #7839f3;
+    padding: 2px;
 }
 
 .navbar .navbar-nav .nav-link {

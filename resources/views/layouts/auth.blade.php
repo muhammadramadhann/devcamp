@@ -18,7 +18,7 @@
     </head>
     <body class="d-flex flex-column min-vh-100 auth">
         @yield('content')
-        @include('component.bottom')
+        @include('components.bottom')
         <!-- Option 1: Bootstrap Bundle with Popper -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
     </body>
