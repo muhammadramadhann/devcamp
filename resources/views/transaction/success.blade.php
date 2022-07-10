@@ -16,7 +16,7 @@
                     <h2 class="primary-header mt-2">
                         Pembayaran Berhasil!
                     </h2>
-                    <a href="{{ route('home') }}" class="btn btn-primary mt-4">
+                    <a href="{{ route('user.dashboard') }}" class="btn btn-primary mt-4">
                         My Dashboard
                     </a>
                 </div>

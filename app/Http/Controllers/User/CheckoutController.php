@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Mail\User\AfterCheckout;
 use App\Models\Camp;
 use App\Models\Checkout;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
 class CheckoutController extends Controller
@@ -84,10 +86,9 @@ class CheckoutController extends Controller
             return back()->withErrors($validator)->withInput();
         }
 
-        // create checkout data
+        // custom checkout data
         $data['user_id'] = Auth::id();
         $data['camp_id'] = $camp->id;
-        Checkout::create($data);
 
         // update user data
         $user = User::where('id', Auth::id());
@@ -96,6 +97,12 @@ class CheckoutController extends Controller
             'email' => $data['email'],
             'occupation' => $data['occupation']
         ]);
+
+        // create checkout data
+        $checkout = Checkout::create($data);
+
+        // sending email
+        Mail::to(Auth::user()->email)->send(new AfterCheckout($checkout));
 
         return redirect(route('transaction.success'));
     }
@@ -108,7 +115,7 @@ class CheckoutController extends Controller
      */
     public function show(Checkout $checkout)
     {
-        //
+        return $checkout;
     }
 
     /**

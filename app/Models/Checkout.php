@@ -20,16 +20,6 @@ class Checkout extends Model
     }
 
     /**
-     * Get the camp that owns the Checkout
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function camp(): BelongsTo
-    {
-        return $this->belongsTo(Camp::class);
-    }
-
-    /**
      * Get the user that owns the Checkout
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -37,5 +27,15 @@ class Checkout extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    /**
+     * Get the camp that owns the Checkout
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function camp(): BelongsTo
+    {
+        return $this->belongsTo(Camp::class);
     }
 }

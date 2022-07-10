@@ -56,7 +56,7 @@ class User extends Authenticatable
      */
     public function camp(): HasOne
     {
-        return $this->hasOne(Camp::class, 'user_id');
+        return $this->hasOne(Camp::class);
     }
 
     /**
@@ -66,6 +66,6 @@ class User extends Authenticatable
      */
     public function checkout(): HasMany
     {
-        return $this->hasMany(Checkout::class, 'user_id');
+        return $this->hasMany(Checkout::class);
     }
 }

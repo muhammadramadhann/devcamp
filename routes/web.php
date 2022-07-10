@@ -35,6 +35,9 @@ Route::middleware('auth')->group(function () {
     Route::get('checkout/{camp:slug}', [CheckoutController::class, 'create'])->name('transaction.checkout');
     Route::post('checkout/{camp}', [CheckoutController::class, 'store'])->name('transaction.checkout.store');
 
+    // invoice
+    Route::get('checkout/invoice/{checkout}', [CheckoutController::class, 'show'])->name('transaction.checkout.invoice');
+
     // dashboard user
     Route::get('dashboard', [DashboardController::class, 'index'])->name('user.dashboard');
 

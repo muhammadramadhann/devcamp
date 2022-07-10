@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Mail\User\AfterRegister;
 use App\Models\Camp;
 use App\Models\Checkout;
 use App\Models\User;
@@ -10,6 +11,7 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Socialite\Facades\Socialite;
 
@@ -112,9 +114,13 @@ class AuthenticationController extends Controller
             'email_verified_at' => date('Y-m-d H:i:s', time()),
         ];
 
-        $user = User::firstOrCreate(['email' => $data['email']], $data);
-        Auth::login($user, true);
+        $user = User::where('email', $data['email'])->first();
+        if (!$user) {
+            $user = User::create($data);
+            Mail::to($user->email)->send(new AfterRegister($user));
+        }
 
+        Auth::login($user, true);
         return redirect(RouteServiceProvider::HOME);
     }
 
