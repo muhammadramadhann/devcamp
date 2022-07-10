@@ -11,14 +11,25 @@
                     </div>
                     <hr class="mb-4">
                     <p class="mt-3 mb-4">Silahkan <span class="fw-bold">masuk</span> menggunakan akun yang terdaftar di Devcamp.</p>
-                    <form action="" method="">
+                    <form action="" method="POST">
+                        @csrf
                         <div class="mb-3">
                             <label for="email" class="form-label fw-bold">Email</label>
                             <input type="email" class="form-control" id="email" name="email" placeholder="Masukkan alamat Email" autofocus>
+                            @error('email')
+                                <div class="text-danger mt-2">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
                         <div class="mb-4">
                             <label for="password" class="form-label fw-bold">Password</label>
                             <input type="password" class="form-control" id="password" name="password" placeholder="Masukkan Password">
+                            @error('password')
+                                <div class="text-danger mt-2">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
                         <div class="mb-4">
                             <button type="submit" class="btn btn-primary w-100">Login</button>

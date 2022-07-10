@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-xl py-3 navbar-light bg-white position-fixed w-100">
     <div class="container">
-        <a class="navbar-brand" href="{{ route('welcome') }}">
+        <a class="navbar-brand" href="{{ route('home') }}">
             <img src="{{ asset('images/logo.svg') }}" alt="logo" width="175">
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -26,7 +26,11 @@
                     <a class="dropdown-toggle" href="" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         {{ Auth::user()->name }}
                         <span class="rounded-circle bg-white">
-                            <img src="{{ Auth::user()->avatar }}" alt="{{ Auth::user()->name }}" class="rounded-circle user-photo">
+                            @if (!Auth::user()->avatar)
+                                <img src="https://via.placeholder.com/42x42?text={{ Auth::user()->name }}" alt="{{ Auth::user()->name }}" class="rounded-circle user-photo">
+                            @else
+                                <img src="{{ Auth::user()->avatar }}" alt="{{ Auth::user()->name }}" class="rounded-circle user-photo">
+                            @endif
                         </span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end mt-2 py-0" aria-labelledby="navbarDropdown">

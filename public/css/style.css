@@ -231,7 +231,8 @@ footer hr {
 }
 
 .btn-logout:hover {
-    background: #ab1c1c;
+    background: #f33939;
+    color: #fff;
 }
 
 .story {

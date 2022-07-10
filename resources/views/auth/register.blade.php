@@ -11,18 +11,34 @@
                     </div>
                     <hr class="mb-4">
                     <p class="mt-3 mb-4">Ayo segera <span class="fw-bold">daftar</span> dan mulai belajar di Devcamp.</p>
-                    <form action="" method="">
+                    <form action="" method="POST">
+                        @csrf
                         <div class="mb-3">
                             <label for="name" class="form-label fw-bold">Nama</label>
                             <input type="text" class="form-control" id="name" name="name" placeholder="Masukkan nama lengkap" autofocus>
+                            @error('name')
+                                <div class="text-danger mt-2">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
                         <div class="mb-3">
                             <label for="email" class="form-label fw-bold">Email</label>
                             <input type="email" class="form-control" id="email" name="email" placeholder="Masukkan alamat Email" autofocus>
+                            @error('email')
+                                <div class="text-danger mt-2">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
                         <div class="mb-4">
                             <label for="password" class="form-label fw-bold">Password</label>
                             <input type="password" class="form-control" id="password" name="password" placeholder="Masukkan password">
+                            @error('password')
+                                <div class="text-danger mt-2">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
                         <div class="mb-4">
                             <button type="submit" class="btn btn-primary w-100">Register</button>

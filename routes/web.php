@@ -1,6 +1,7 @@
 <?php
 
-use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Auth\AuthenticationController as Authentication;
+use App\Http\Controllers\User\CheckoutController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,24 +17,22 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('home');
-})->name('welcome');
+})->name('home');
 
-Route::get('login', [AuthController::class, 'login'])->name('login');
-Route::get('sign-in-google', [AuthController::class, 'google_oauth'])->name('login.google');
-Route::get('auth/google/callback', [AuthController::class, 'handleProviderCallback'])->name('user.google.callback');
-
-Route::middleware('auth')->group(function () {
-    Route::post('logout', [AuthController::class, 'logout'])->name('logout');
+// authentication
+Route::middleware('guest')->group(function () {
+    Route::get('login', [Authentication::class, 'index_login'])->name('login');
+    Route::post('login', [Authentication::class, 'store_login'])->name('login');
+    Route::get('register', [Authentication::class, 'index_register'])->name('register');
+    Route::post('register', [Authentication::class, 'store_register'])->name('register');
+    Route::get('sign-in-google', [Authentication::class, 'google_oauth'])->name('login.google');
+    Route::get('auth/google/callback', [Authentication::class, 'handleProviderCallback'])->name('user.google.callback');
 });
 
-Route::get('register', function () {
-    return view('auth.register');
-})->name('register');
+Route::middleware('auth')->group(function () {
+    Route::get('checkout/success', [CheckoutController::class, 'index'])->name('transaction.success');
+    Route::get('checkout/{camp:slug}', [CheckoutController::class, 'create'])->name('transaction.checkout');
+    Route::post('checkout/{camp}', [CheckoutController::class, 'store'])->name('transaction.checkout.store');
 
-Route::get('checkout', function () {
-    return view('transactions.checkout');
-})->name('checkout');
-
-Route::get('success-checkout', function () {
-    return view('transactions.success_checkout');
-})->name('success-checkout');
+    Route::post('logout', [Authentication::class, 'logout'])->name('logout');
+});
