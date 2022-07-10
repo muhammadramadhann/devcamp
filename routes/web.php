@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthenticationController as Authentication;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\User\CheckoutController;
+use App\Http\Controllers\User\DashboardController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,12 +17,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-})->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
-// authentication
 Route::middleware('guest')->group(function () {
+    // authentication
     Route::get('login', [Authentication::class, 'index_login'])->name('login');
     Route::post('login', [Authentication::class, 'store_login'])->name('login');
     Route::get('register', [Authentication::class, 'index_register'])->name('register');
@@ -30,9 +30,13 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
+    // checkout
     Route::get('checkout/success', [CheckoutController::class, 'index'])->name('transaction.success');
     Route::get('checkout/{camp:slug}', [CheckoutController::class, 'create'])->name('transaction.checkout');
     Route::post('checkout/{camp}', [CheckoutController::class, 'store'])->name('transaction.checkout.store');
+
+    // dashboard user
+    Route::get('dashboard', [DashboardController::class, 'index'])->name('user.dashboard');
 
     Route::post('logout', [Authentication::class, 'logout'])->name('logout');
 });

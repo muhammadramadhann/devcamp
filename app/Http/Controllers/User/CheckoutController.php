@@ -29,6 +29,12 @@ class CheckoutController extends Controller
      */
     public function create(Camp $camp)
     {
+        // check if user is registered on chosen camp
+        $is_registered = Checkout::where('camp_id', $camp->id)->where('user_id', Auth::id())->first();
+        if ($is_registered) {
+            return redirect(route('user.dashboard'))->with('registered', 'Kamu sudah terdaftar pada camp ' . $camp->title . ' !');
+        }
+
         return view('transaction.checkout', [
             'camp' => $camp
         ]);
@@ -43,14 +49,15 @@ class CheckoutController extends Controller
     public function store(Request $request, Camp $camp)
     {
         $data = $request->all();
+        $date = date('Y-m', time());
 
         $rules = [
             'name' => 'required|min:5',
-            'email' => 'required|email',
+            'email' => 'required|email|unique:users,email,' . Auth::id() . 'id',
             'occupation' => 'required',
             'card_number' => 'required|numeric|digits_between:8,16',
-            'expired' => 'required',
-            'cvc' => 'required|numeric|min:3'
+            'expired' => 'required|date_format:Y-m|after_or_equal:' . $date,
+            'cvc' => 'required|numeric|digits:3'
         ];
 
         $message = [
@@ -58,14 +65,17 @@ class CheckoutController extends Controller
             'name.min' => 'Minimal harus 5 karakter',
             'email.required' => 'Email harus diisi',
             'email.email' => 'Email tidak valid',
+            'email.unique' => 'Email sudah digunakan',
             'occupation.required' => 'Status harus diisi',
             'card_number.required' => 'Nomor kartu harus diisi',
             'card_number.numeric' => 'Nomor kartu harus berupa angka',
             'card_number.digits_between' => 'Nomor kartu tidak valid',
-            'expired.required' => 'Kadaluarsa Kartu harus diisi',
-            'cvc.required' => 'CVC harus diisi',
-            'cvc.numeric' => 'CVC harus berupa angka',
-            'cvc.min' => 'CVC tidak valid',
+            'expired.required' => 'Waktu kadaluarsa kartu harus diisi',
+            'expired.date_format' => 'Format waktu kadaluarsa kartu tidak sesuai',
+            'expired.after_or_equal' => 'Kartu sudah kadaluarsa',
+            'cvc.required' => 'Nomor CVC harus diisi',
+            'cvc.numeric' => 'Nomor CVC harus berupa angka',
+            'cvc.digits' => 'Nomor CVC tidak valid',
         ];
 
         $validator = Validator::make($data, $rules, $message);

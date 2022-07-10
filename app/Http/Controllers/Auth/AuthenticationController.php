@@ -50,8 +50,13 @@ class AuthenticationController extends Controller
             return back()->withErrors($validator)->withInput();
         }
 
-        Auth::attempt($credentials, true);
-        return redirect(RouteServiceProvider::HOME);
+        $auth = Auth::attempt($credentials, true);
+
+        if ($auth) {
+            return redirect(RouteServiceProvider::HOME);
+        }
+
+        return back()->with('wrong_password', 'Password tidak sesuai');
     }
 
     public function store_register(Request $request)
@@ -63,7 +68,7 @@ class AuthenticationController extends Controller
 
         $rules = [
             'name' => 'required|min:5',
-            'email' => 'required|email',
+            'email' => 'required|email|unique:users,email',
             'password' => 'required',
         ];
 
@@ -110,7 +115,7 @@ class AuthenticationController extends Controller
         $user = User::firstOrCreate(['email' => $data['email']], $data);
         Auth::login($user, true);
 
-        return redirect(route('welcome'));
+        return redirect(RouteServiceProvider::HOME);
     }
 
     public function logout()

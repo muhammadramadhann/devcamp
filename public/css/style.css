@@ -343,7 +343,7 @@ footer hr {
     height: 30px;
 }
 
-.dashboard .table tr {
+#dashboard .table tr {
     border: 1px solid #fff;
 }
 

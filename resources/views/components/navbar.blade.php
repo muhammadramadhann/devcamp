@@ -34,7 +34,7 @@
                         </span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end mt-2 py-0" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item py-2" href="#">My Dashboard</a></li>
+                        <li><a class="dropdown-item py-2" href="{{ route('user.dashboard') }}">My Dashboard</a></li>
                         <li><a class="dropdown-item py-2" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit()">Logout</a></li>
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -42,7 +42,7 @@
                     </ul>
                 </div>
                 <div class="d-flex flex-column d-lg-none d-block">
-                    <a href="" class="btn btn-secondary mb-2">My Dashboard</a>
+                    <a href="{{ route('user.dashboard') }}" class="btn btn-secondary mb-2">My Dashboard</a>
                     <a href="#" class="btn btn-logout" onclick="event.preventDefault(); document.getElementById('logout-form').submit()">Logout</a>
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">

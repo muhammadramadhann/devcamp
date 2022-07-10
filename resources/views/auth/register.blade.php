@@ -7,7 +7,7 @@
             <div class="card mx-auto glass-auth mx-auto p-sm-4 p-2">
                 <div class="card-body">
                     <div class="text-start mb-4">
-                        <a href="/"><img src="{{ asset('images/logo.svg') }}" alt="logo"></a>
+                        <a href="{{ route('home') }}"><img src="{{ asset('images/logo.svg') }}" alt="logo"></a>
                     </div>
                     <hr class="mb-4">
                     <p class="mt-3 mb-4">Ayo segera <span class="fw-bold">daftar</span> dan mulai belajar di Devcamp.</p>
@@ -15,7 +15,7 @@
                         @csrf
                         <div class="mb-3">
                             <label for="name" class="form-label fw-bold">Nama</label>
-                            <input type="text" class="form-control" id="name" name="name" placeholder="Masukkan nama lengkap" autofocus>
+                            <input type="text" class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}" id="name" name="name" placeholder="Masukkan nama lengkap" autofocus>
                             @error('name')
                                 <div class="text-danger mt-2">
                                     {{ $message }}
@@ -24,7 +24,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="email" class="form-label fw-bold">Email</label>
-                            <input type="email" class="form-control" id="email" name="email" placeholder="Masukkan alamat Email" autofocus>
+                            <input type="email" class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}" id="email" name="email" placeholder="Masukkan alamat Email" autofocus>
                             @error('email')
                                 <div class="text-danger mt-2">
                                     {{ $message }}
@@ -33,7 +33,7 @@
                         </div>
                         <div class="mb-4">
                             <label for="password" class="form-label fw-bold">Password</label>
-                            <input type="password" class="form-control" id="password" name="password" placeholder="Masukkan password">
+                            <input type="password" class="form-control {{ $errors->has('password') ? 'is-invalid' : '' }}" id="password" name="password" placeholder="Masukkan password">
                             @error('password')
                                 <div class="text-danger mt-2">
                                     {{ $message }}

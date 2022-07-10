@@ -35,7 +35,7 @@
                                 @csrf
                                 <div class="mb-4">
                                     <label for="name" class="form-label">Nama Lengkap</label>
-                                    <input type="text" class="form-control" id="name" name="name" placeholder="Masukkan nama lengkap" value="{{ Auth::user()->name }}">
+                                    <input type="text" class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}" id="name" name="name" placeholder="Masukkan nama lengkap" value="{{ Auth::user()->name }}" required>
                                     @error('name')
                                         <div class="text-danger mt-2">
                                             {{ $message }}
@@ -44,7 +44,7 @@
                                 </div>
                                 <div class="mb-4">
                                     <label for="email" class="form-label">Email Address</label>
-                                    <input type="email" class="form-control" id="email" name="email" placeholder="Masukkan alamat Email" value="{{ Auth::user()->email }}">
+                                    <input type="email" class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}" id="email" name="email" placeholder="Masukkan alamat Email" value="{{ Auth::user()->email }}" required>
                                     @error('email')
                                         <div class="text-danger mt-2">
                                             {{ $message }}
@@ -53,7 +53,7 @@
                                 </div>
                                 <div class="mb-4">
                                     <label for="occupation" class="form-label">Status Pekerjaan</label>
-                                    <select class="form-select" name="occupation" aria-label="Default select example">
+                                    <select class="form-select {{ $errors->has('occupation') ? 'is-invalid' : '' }}" name="occupation" aria-label="Default select example" required>
                                         <option selected disabled>-- Pilih status saat ini --</option>
                                         <option value="Mahasiswa" {{ Auth::user()->occupation == 'Mahasiswa' ? 'selected' : '' }}>Mahasiswa</option>
                                         <option value="Karyawan" {{ Auth::user()->occupation == 'Karyawan' ? 'selected' : '' }}>Karyawan</option>
@@ -67,7 +67,7 @@
                                 </div>
                                 <div class="mb-4">
                                     <label for="card_number" class="form-label">Nomor Kartu</label>
-                                    <input type="number" class="form-control" id="card_number" name="card_number" placeholder="Masukkan nomor kartu debit/kredit" value="{{ old('card_number') }}">
+                                    <input type="number" class="form-control {{ $errors->has('card_number') ? 'is-invalid' : '' }}" id="card_number" name="card_number" placeholder="Masukkan nomor kartu debit/kredit" value="{{ old('card_number') }}" required>
                                     @error('card_number')
                                         <div class="text-danger mt-2">
                                             {{ $message }}
@@ -78,7 +78,7 @@
                                     <div class="row">
                                         <div class="col-lg-6 col-12 mb-lg-0 mb-4">
                                             <label for="expired" class="form-label">Expired</label>
-                                            <input type="month" class="form-control" id="expired" name="expired" placeholder="Masukkan tanggal kadaluarsa kartu" value="{{ old('expired') }}">
+                                            <input type="month" class="form-control {{ $errors->has('expired') ? 'is-invalid' : '' }}" id="expired" name="expired" placeholder="Masukkan tanggal kadaluarsa kartu" value="{{ old('expired') }}" required>
                                             @error('expired')
                                                 <div class="text-danger mt-2">
                                                     {{ $message }}
@@ -87,7 +87,7 @@
                                         </div>
                                         <div class="col-lg-6 col-12">
                                             <label for="cvc" class="form-label">CVC</label>
-                                            <input type="text" class="form-control" id="cvc" name="cvc" placeholder="Masukkan CVC kartu" maxlength="3" value="{{ old('cvc') }}">
+                                            <input type="text" class="form-control {{ $errors->has('cvc') ? 'is-invalid' : '' }}" id="cvc" name="cvc" placeholder="Masukkan CVC kartu" maxlength="3" value="{{ old('cvc') }}" required>
                                             @error('cvc')
                                                 <div class="text-danger mt-2">
                                                     {{ $message }}
